@@ -34,10 +34,6 @@ pip install pipeplotly[full]       # For all features
 pip install pipeplotly[dev]        # Development dependencies
 ```
 
-> [!TIP]
-> **How to read the `>>` operator:** Think of it as **"pipe to"** or **"and then"**. 
-> For example: `df >> Plot() >> show()` is read as *"take the dataframe, **pipe it to** a Plot, **and then** show it."*
-
 ## Quick Start (Functional Style)
 
 PipePlotly is designed to be used with the pipe operator (`>>`) for a clean, readable data pipeline.
@@ -63,6 +59,11 @@ df = pd.DataFrame({
  >> set_theme('minimal')
  >> show())
 ```
+
+
+> [!TIP]
+> **How to read the `>>` operator:** Think of it as **"pipe to"** or **"and then"**. 
+> For example: `df >> Plot() >> show()` is read as *"take the dataframe, **pipe it to** a Plot, **and then** show it."*
 
 ### Alternative: Method Chaining
 If you prefer traditional object-oriented syntax, PipePlotly also supports method chaining:
