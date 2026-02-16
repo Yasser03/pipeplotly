@@ -204,8 +204,10 @@ class Plot:
         updates = {}
         if column:
             updates['color'] = column
+            updates['color_value'] = None  # Clear fixed value if mapping
         if value:
             updates['color_value'] = value
+            updates['color'] = None  # Clear mapping if fixed value
         if palette:
             updates['color_palette'] = palette
         return self._copy(**{**updates, **kwargs})
@@ -225,11 +227,14 @@ class Plot:
         updates = {}
         if isinstance(column, (int, float)):
             updates['size_value'] = float(column)
+            updates['size'] = None  # Clear mapping
         elif isinstance(column, str):
             updates['size'] = column
+            updates['size_value'] = None  # Clear fixed value
             
         if value is not None:
             updates['size_value'] = value
+            updates['size'] = None  # Clear mapping
         return self._copy(**{**updates, **kwargs})
     
     def add_shape(self, column: str, **kwargs) -> 'Plot':
@@ -262,11 +267,14 @@ class Plot:
         updates = {}
         if isinstance(column, (int, float)):
             updates['alpha_value'] = float(column)
+            updates['alpha'] = None  # Clear mapping
         elif isinstance(column, str):
             updates['alpha'] = column
+            updates['alpha_value'] = None  # Clear fixed value
             
         if value is not None:
             updates['alpha_value'] = value
+            updates['alpha'] = None  # Clear mapping
         return self._copy(**{**updates, **kwargs})
     
     def add_facets(self, rows: Optional[str] = None, cols: Optional[str] = None, 
@@ -489,6 +497,21 @@ class Plot:
         backend = PlotlyBackend()
         return backend.to_html(plot.state, filename)
     
+    def __call__(self, data):
+        """
+        Allow Plot instance to be callable.
+        
+        This is required for integration with libraries like pipeframe
+        that expect the target of the pipe operator to be callable.
+        
+        Args:
+            data: The data to be plotted
+            
+        Returns:
+            Result of piping data into this Plot instance
+        """
+        return self.__rrshift__(data)
+
     # ============================================================
     # PIPE OPERATOR SUPPORT
     # ============================================================
@@ -530,10 +553,13 @@ class Plot:
         if isinstance(other, pd.DataFrame):
             return Plot(data=other)
         
-        # Check if it's a pipeframe DataFrame or similar (has _df attribute)
+        # Check if it's a pipeframe DataFrame or similar (has _df or _data attribute)
         try:
-            if hasattr(other, '_df') and isinstance(other._df, pd.DataFrame):
-                # pipeframe stores the underlying DataFrame in _df
+            if hasattr(other, '_data') and isinstance(other._data, pd.DataFrame):
+                # pipeframe v0.2.0+ stores the underlying DataFrame in _data
+                return Plot(data=other._data)
+            elif hasattr(other, '_df') and isinstance(other._df, pd.DataFrame):
+                # Older pipeframe stores the underlying DataFrame in _df
                 return Plot(data=other._df)
             elif hasattr(other, 'to_pandas') and callable(other.to_pandas):
                 # Some libraries have to_pandas() method

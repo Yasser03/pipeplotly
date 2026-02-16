@@ -39,7 +39,7 @@ def validate_column(df: pd.DataFrame, column: str, column_type: str = "column") 
     Raises:
         ValueError: If column doesn't exist
     """
-    if column and column not in df.columns:
+    if column and isinstance(column, str) and column not in df.columns:
         available = ', '.join(df.columns.tolist()[:5])
         if len(df.columns) > 5:
             available += f', ... ({len(df.columns)} total)'
