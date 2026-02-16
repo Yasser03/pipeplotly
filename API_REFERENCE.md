@@ -1,100 +1,101 @@
 # PipePlotly API Reference
 
-This document provides a comprehensive reference for the PipePlotly API, including the core `Plot` class and standalone verb functions.
+This document provides a comprehensive reference for the PipePlotly API, prioritizing the **Pipe Operator (`>>`)** interface.
 
-## 1. Core API
+## 1. Core Entry Points (The `>>` Interface)
 
-### `Plot(data=None, state=None)`
+PipePlotly's primary interface uses the pipe operator to flow data from a DataFrame through a `Plot` object and into visualization verbs.
 
-The main visualization class. It uses an immutable state pattern where each method returns a new `Plot` instance.
-
-**Initialization:**
+### Initialization
 
 ```python
 from pipeplotly import Plot
-# Initialize with a pandas DataFrame
-plot = Plot(df)
+from pipeplotly.verbs import *
 
-# Or use with pipe operator
-plot = df >> Plot()
+# The Standard Pipe Pattern:
+# df >> Plot() >> [Visualization Verb] >> [Aesthetic Verb] >> show()
+
+df >> Plot() >> plot_points('x', 'y') >> show()
 ```
 
 ---
 
-## 2. Standalone Verbs
+## 2. Standalone Verb Functions
 
-Standalone verbs are available in `pipeplotly.verbs` and are designed to be used with the pipe operator (`>>`).
+These functions are designed specifically for use with the `>>` operator.
 
-### Initialization Verbs (Geoms)
-
-These verbs define the base geometry of the plot.
-
-| Verb | Description | Parameters |
-| :--- | :--- | :--- |
-| `plot_points(x, y, **kwargs)` | Create a scatter plot. | `x` (str), `y` (str) |
-| `plot_lines(x, y, **kwargs)` | Create a line plot. | `x` (str), `y` (str) |
-| `plot_bars(x, y=None, **kwargs)` | Create a bar chart. | `x` (str), `y` (str, optional) |
-| `plot_histogram(x, bins=None, **kwargs)` | Create a histogram. | `x` (str), `bins` (int, optional) |
-| `plot_box(x=None, y=None, **kwargs)` | Create a box plot. | `x` (str, optional), `y` (str, optional) |
-| `plot_violin(x=None, y=None, **kwargs)` | Create a violin plot. | `x` (str, optional), `y` (str, optional) |
-| `plot_density(x, **kwargs)` | Create a density plot. | `x` (str) |
-| `plot_heatmap(x, y, color, **kwargs)` | Create a heatmap. | `x` (str), `y` (str), `color` (str) |
-
-### Aesthetic Verbs
-
-Modify how data columns are mapped to visual properties.
+### 📊 Initialization Verbs (Geometry)
+These verbs define the "what" of your visualization. They must follow `Plot()` in a pipeline.
 
 | Verb | Description | Parameters |
 | :--- | :--- | :--- |
-| `add_color(column=None, value=None, palette=None)` | Set color mapping or fixed color. | `column` (str), `value` (str), `palette` (str/list) |
-| `add_size(column=None, value=None)` | Set size mapping or fixed size. | `column` (str), `value` (float) |
-| `add_shape(column)` | Map a column to point shape. | `column` (str) |
-| `add_alpha(column=None, value=None)` | Set transparency. | `column` (str), `value` (float) |
-| `add_facets(rows=None, cols=None, wrap=None)` | Create subplots based on categories. | `rows`, `cols`, `wrap` (str) |
-| `add_labels(title=None, x=None, y=None)` | Update plot labels. | `title`, `x`, `y` (str) |
-| `add_smooth(method='loess', **kwargs)` | Add a smoothing trend line. | `method` ('loess', 'lm', etc.) |
+| `plot_points(x, y)` | Scatter plot | `x`, `y` (column names) |
+| `plot_lines(x, y)` | Line plot | `x`, `y` (column names) |
+| `plot_bars(x, y)` | Bar chart | `x` (category), `y` (values, optional) |
+| `plot_histogram(x)` | Distribution | `x` (column name) |
+| `plot_box(x, y)` | Box plot | `x` (category), `y` (values) |
+| `plot_violin(x, y)` | Violin plot | `x` (category), `y` (values) |
+| `plot_density(x)` | Density plot | `x` (column name) |
+| `plot_heatmap(x, y, z)`| Heatmap | `x`, `y`, `z` (column names) |
 
-### Transformation Verbs
+### 🎨 Aesthetic Verbs
+Modify the "how" of your visualization (mapping data to visual properties).
 
-Modify axes, scales, and coordinates.
+| Verb | Description | Usage Example |
+| :--- | :--- | :--- |
+| `add_color(col)` | Map column to color | `>> add_color('species')` |
+| `add_size(col)` | Map column to size | `>> add_size('population')` |
+| `add_shape(col)` | Map column to shape | `>> add_shape('type')` |
+| `add_facets(cols)` | Create subplots | `>> add_facets(cols='category')` |
+| `add_labels(...)` | Set titles/axes | `>> add_labels(title='My Plot')` |
+| `add_smooth()` | Add trend line | `>> add_smooth(method='loess')` |
 
-| Verb | Description |
-| :--- | :--- |
-| `scale_x_log()` / `scale_y_log()` | Apply logarithmic scale. |
-| `scale_x_reverse()` / `scale_y_reverse()` | Reverse the axis. |
-| `xlim(min, max)` / `ylim(min, max)` | Set axis limits. |
-| `coord_flip()` | Swap X and Y axes. |
-| `coord_fixed(ratio=1.0)` | Set fixed aspect ratio (y/x). |
+### 🛠️ Transformation Verbs
+Adjust coordinates, scales, and limits.
 
-### Theme Verbs
-
-| Verb | Description |
-| :--- | :--- |
-| `set_theme(theme)` | Set plot theme ('default', 'minimal', 'dark', 'classic'). |
-
----
-
-## 3. Output Verbs
-
-Control how the plot is displayed or saved.
-
-| Verb | Description |
-| :--- | :--- |
-| `show()` | Render the plot in the current environment. |
-| `save(filename, width=None, height=None, dpi=300)` | Save the plot to a file (PNG, PDF, HTML, etc.). |
-| `to_interactive()` | Switch to interactive Plotly backend. |
-| `to_static()` | Switch to static plotnine backend. |
-| `to_html(filename=None)` | Export plot as an HTML fragment or file. |
+| Verb | Description | Usage Example |
+| :--- | :--- | :--- |
+| `scale_x_log()` | Logarithmic X axis | `>> scale_x_log()` |
+| `scale_y_log()` | Logarithmic Y axis | `>> scale_y_log()` |
+| `xlim(min, max)` | X axis limits | `>> xlim(0, 100)` |
+| `coord_flip()` | Swap X and Y axes | `>> coord_flip()` |
 
 ---
 
-## 4. Method Reference (Plot Class)
+## 3. Output & Backend Control
 
-Every standalone verb has a corresponding method on the `Plot` class for method chaining.
+These verbs determine how and where the plot is rendered.
+
+| Verb | Description | Backend |
+| :--- | :--- | :--- |
+| `show()` | Display the plot | Both |
+| `to_interactive()` | Switch to Plotly | Interactive |
+| `to_static()` | Switch to plotnine | Static |
+| `save(path)` | Export to file | Both |
+| `to_html(path)` | Export as HTML | Interactive |
+
+---
+
+## 4. Alternative: Method Chaining (The `.` Interface)
+
+While the pipe operator is the primary focus, all verbs are also available as methods on the `Plot` class:
 
 ```python
-# Equivalent behavior:
-Plot(df).plot_points('x', 'y').add_color('category').show()
-# vs
-df >> Plot() >> plot_points('x', 'y') >> add_color('category') >> show()
+# Chaining Style:
+plot = (Plot(df)
+        .plot_points('x', 'y')
+        .add_color('category')
+        .show())
 ```
+
+---
+
+## 📚 Comparisons
+
+| Feature | Pipe Operator (`>>`) | Method Chaining (`.`) |
+| :--- | :--- | :--- |
+| **Logic** | Functional (Data Flow) | Object-Oriented (Modification) |
+| **Readability** | Reads left-to-right | Reads top-to-bottom |
+| **Integrations** | Seamless with `pipeframe` | Standard Python |
+
+For more examples, check out the [Tutorial Notebook](examples/pipe_operator_examples.ipynb).
