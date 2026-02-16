@@ -5,16 +5,17 @@ A **verb-based, pipe-friendly** Python package for creating beautiful static and
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
-## Overview
+## About
 
-PipePlotly bridges the gap between **Grammar of Graphics** (via plotnine) and modern **interactive visualizations** (via Plotly Express) with a consistent, readable syntax inspired by the tidyverse and pipeframe packages.
+**PipePlotly** is a high-level, verb-based visualization library for Python that prioritizes developer experience and code readability. It bridges the gap between the structured **Grammar of Graphics** (via `plotnine`) and modern **interactive dashboards** (via `Plotly Express`).
 
-**Why PipePlotly?**
-- 🔗 **Functional First**: Primary interface uses the `>>` pipe operator for natural data flow
-- 📊 **Dual backends**: Static plots (plotnine) and interactive plots (Plotly Express)
-- 🎨 **Verb-based API**: Code reads like natural language
-- 🚀 **Production-ready**: Type hints, error handling, comprehensive tutorials
-- 🧩 **Grammar of Graphics**: Familiar to R/ggplot2 users
+By leveraging a functional API and the `>>` pipe operator, PipePlotly allows you to build complex data visualizations that read like natural language, making your analysis pipelines more maintainable and expressive.
+
+### Why PipePlotly?
+- 🔗 **Functional First**: Built from the ground up to support the `>>` pipe operator
+- 📊 **Hybrid Power**: Seamlessly switch between publication-quality static plots and interactive exploration
+- 🎨 **Declarative Verbs**: Clear, expressive functions like `plot_points`, `add_color`, and `set_theme`
+- 🧩 **Ecosystem Ready**: First-class integration with `pandas` and `pipeframe`
 
 ## Installation
 
@@ -181,6 +182,16 @@ AI & Data Science Specialist | Theoretical Physics PhD
 *   📍 Based in Newcastle Upon Tyne, UK
 *   ✉️ [yasser.mustafan@gmail.com](mailto:yasser.mustafan@gmail.com)
 *   🔗 [LinkedIn](https://www.linkedin.com/in/yasser-mustafa-phd-72886344/) | [GitHub](https://github.com/Yasser03)
+
+## Coming Later
+
+PipePlotly is actively evolving. Here’s what’s on the horizon:
+- 🌈 **More Backends**: Upcoming support for Altair and Bokeh
+- 📑 **Auto-Reporting**: Generate full HTML/PDF reports directly from piped pipelines
+- 🧪 **Advanced Stats**: More complex statistical geoms and transformations
+- 🔌 **Plugin System**: Easily add your own custom verbs and backends
+
+---
 
 ## License
 
