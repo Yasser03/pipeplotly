@@ -54,9 +54,9 @@ pip install pipeframe
 ```
 
 ```python
-from pipeframe import PipeFrame
+from pipeframe import DataFrame as pf_df
 
-plot = (PipeFrame(df)
+plot = (pf_df(df)
     >> (lambda d: d[d._df['x'] > 0])  # Now lambdas work!
     >> (lambda d: d.sort_values('y'))
     >> Plot()

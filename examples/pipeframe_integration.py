@@ -37,10 +37,10 @@ print("Example 2: PipeFrame Integration (if installed)")
 print("="*60)
 
 try:
-    from pipeframe import PipeFrame
+    from pipeframe import DataFrame as pf_df
     
     # Wrap DataFrame in PipeFrame
-    pf = PipeFrame(df)
+    pf = pf_df(df)
     
     # Can pipe directly from PipeFrame to Plot!
     plot = (pf
@@ -56,7 +56,7 @@ try:
     print("Example 3: Data Manipulation + Visualization Pipeline")
     print("="*60)
     
-    result = (PipeFrame({
+    result = (pf_df({
         'x': range(100),
         'y': np.random.randn(100),
         'category': np.random.choice(['A', 'B', 'C'], 100)

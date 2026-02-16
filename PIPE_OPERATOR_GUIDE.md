@@ -46,12 +46,12 @@ PipeFrame extends pandas DataFrames with pipe-friendly operations. Here's how to
 
 ```python
 import pandas as pd
-from pipeframe import PipeFrame
+from pipeframe import DataFrame as pf_df
 from pipeplotly import Plot
 from pipeplotly.verbs import plot_points, add_color, show
 
 # Wrap DataFrame in PipeFrame
-df = PipeFrame({
+df = pf_df({
     'x': range(100),
     'y': range(100),
     'category': ['A', 'B', 'C', 'D'] * 25
@@ -70,12 +70,12 @@ plot = (df
 ### Advanced Example: Data Pipeline + Visualization
 
 ```python
-from pipeframe import PipeFrame, filter, mutate, group_by, summarise
+from pipeframe import DataFrame as pf_df, filter, mutate, group_by, summarise
 from pipeplotly import Plot
 from pipeplotly.verbs import *
 
 # Complete data pipeline
-result = (PipeFrame(raw_data)
+result = (pf_df(raw_data)
     >> filter(lambda d: d['value'] > 0)  # Filter data
     >> mutate(log_value=lambda d: np.log(d['value']))  # Transform
     >> group_by('category')  # Group
@@ -98,7 +98,7 @@ result = (PipeFrame(raw_data)
 ### Time Series Example
 
 ```python
-from pipeframe import PipeFrame
+from pipeframe import DataFrame as pf_df
 from pipeplotly import Plot
 from pipeplotly.verbs import plot_lines, add_color, add_smooth, show
 
@@ -183,7 +183,7 @@ from pipeplotly.verbs import (
 ```python
 import pandas as pd
 import numpy as np
-from pipeframe import PipeFrame
+from pipeframe import DataFrame as pf_df
 from pipeplotly import Plot
 from pipeplotly.verbs import *
 

@@ -210,12 +210,12 @@ class Plot:
             updates['color_palette'] = palette
         return self._copy(**{**updates, **kwargs})
     
-    def add_size(self, column: Optional[str] = None, value: Optional[float] = None, **kwargs) -> 'Plot':
+    def add_size(self, column: Optional[Union[str, float]] = None, value: Optional[float] = None, **kwargs) -> 'Plot':
         """
         Map a column to size or set a fixed size.
         
         Args:
-            column: Column name to map to size
+            column: Column name to map to size or fixed size value
             value: Fixed size value
             **kwargs: Additional parameters
             
@@ -223,9 +223,12 @@ class Plot:
             New Plot instance with size aesthetic added
         """
         updates = {}
-        if column:
+        if isinstance(column, (int, float)):
+            updates['size_value'] = float(column)
+        elif isinstance(column, str):
             updates['size'] = column
-        if value:
+            
+        if value is not None:
             updates['size_value'] = value
         return self._copy(**{**updates, **kwargs})
     
@@ -242,7 +245,7 @@ class Plot:
         """
         return self._copy(shape=column, **kwargs)
     
-    def add_alpha(self, column: Optional[str] = None, value: Optional[float] = None, **kwargs) -> 'Plot':
+    def add_alpha(self, column: Optional[Union[str, float]] = None, value: Optional[float] = None, **kwargs) -> 'Plot':
         """
         Map a column to transparency or set fixed alpha.
         
@@ -257,9 +260,12 @@ class Plot:
  aesthetic added
         """
         updates = {}
-        if column:
+        if isinstance(column, (int, float)):
+            updates['alpha_value'] = float(column)
+        elif isinstance(column, str):
             updates['alpha'] = column
-        if value:
+            
+        if value is not None:
             updates['alpha_value'] = value
         return self._copy(**{**updates, **kwargs})
     

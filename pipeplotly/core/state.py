@@ -112,20 +112,20 @@ class PlotState:
             raise ValueError("Plot geometry type must be specified (use plot_points, plot_lines, etc.)")
         
         # Validate that mapped aesthetics exist as columns
-        if self.x and self.x not in self.data.columns:
+        if self.x and isinstance(self.x, str) and self.x not in self.data.columns:
             raise ValueError(f"Column '{self.x}' not found in data")
         
-        if self.y and self.y not in self.data.columns:
+        if self.y and isinstance(self.y, str) and self.y not in self.data.columns:
             raise ValueError(f"Column '{self.y}' not found in data")
         
-        if self.color and self.color not in self.data.columns:
+        if self.color and isinstance(self.color, str) and self.color not in self.data.columns:
             raise ValueError(f"Column '{self.color}' not found in data")
         
-        if self.size and self.size not in self.data.columns:
+        if self.size and isinstance(self.size, str) and self.size not in self.data.columns:
             raise ValueError(f"Column '{self.size}' not found in data")
         
-        if self.shape and self.shape not in self.data.columns:
+        if self.shape and isinstance(self.shape, str) and self.shape not in self.data.columns:
             raise ValueError(f"Column '{self.shape}' not found in data")
         
-        if self.alpha and self.alpha not in self.data.columns:
+        if self.alpha and isinstance(self.alpha, str) and self.alpha not in self.data.columns:
             raise ValueError(f"Column '{self.alpha}' not found in data")
