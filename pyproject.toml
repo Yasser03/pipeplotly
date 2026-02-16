@@ -1,0 +1,78 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pipeplotly"
+version = "0.2.0"
+description = "A verb-based, pipe-friendly API for creating static and interactive visualizations"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "Dr. Yasser Mustafa", email = "yasser.mustafan@gmail.com"}
+]
+keywords = ["visualization", "plotting", "grammar-of-graphics", "plotly", "plotnine", "data-science"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Visualization",
+]
+
+dependencies = [
+    "plotnine>=0.12.0",
+    "plotly>=5.0.0",
+    "pandas>=1.3.0",
+    "numpy>=1.20.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "jupyter>=1.0.0",
+    "ipykernel>=6.0.0",
+    "black>=22.0.0",
+    "ruff>=0.1.0",
+]
+pipeframe = [
+    "pipeframe>=0.1.0",
+]
+full = [
+    "scikit-misc>=0.2.0",
+    "pipeframe>=0.1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/Yasser03/pipeplotly"
+Documentation = "https://pipeplotly.readthedocs.io"
+Repository = "https://github.com/Yasser03/pipeplotly"
+Issues = "https://github.com/Yasser03/pipeplotly/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pipeplotly*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v"
+
+[tool.black]
+line-length = 88
+target-version = ['py38', 'py39', 'py310', 'py311']
+
+[tool.ruff]
+line-length = 88
+target-version = "py38"
+select = ["E", "F", "W", "I", "N", "UP"]

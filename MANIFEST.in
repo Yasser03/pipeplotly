@@ -1,0 +1,6 @@
+include README.md
+include LICENSE
+include pyproject.toml
+recursive-include pipeplotly *.py
+recursive-include examples *.ipynb *.py
+recursive-include tests *.py
