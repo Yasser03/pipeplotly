@@ -6,6 +6,10 @@ This document provides a comprehensive reference for the PipePlotly API, priorit
 
 PipePlotly's primary interface uses the pipe operator to flow data from a DataFrame through a `Plot` object and into visualization verbs.
 
+> [!TIP]
+> **How to read the `>>` operator:** 
+> Read it as **"pipe to"** or **"and then"**. For example, `df >> Plot() >> show()` is read as *"take the dataframe, **pipe it to** a Plot, **and then** show it."*
+
 ### Initialization
 
 ```python
