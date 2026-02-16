@@ -2,8 +2,10 @@
 
 A **verb-based, pipe-friendly** Python package for creating beautiful static and interactive visualizations with an intuitive, functional API.
 
+[![PyPI version](https://img.shields.io/pypi/v/pipeplotly.svg)](https://pypi.org/project/pipeplotly/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pipeplotly)](https://pypi.org/project/pipeplotly/)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/pipeplotly)](https://pypi.org/project/pipeplotly/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
 ## About
 
