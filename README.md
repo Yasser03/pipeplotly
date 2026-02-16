@@ -30,12 +30,13 @@ pip install pipeplotly
 ### Optional
 ```bash
 pip install pipeplotly[pipeframe]  # For enhanced pipe operator support
-pip install pipeplotly[full]       # For all features (includes scikit-misc for smoothing)
+pip install pipeplotly[full]       # For all features
 pip install pipeplotly[dev]        # Development dependencies
 ```
 
-> [!NOTE]
-> For `loess` smoothing (the default in `add_smooth()`), you must have `scikit-misc` installed.
+> [!TIP]
+> **How to read the `>>` operator:** Think of it as **"pipe to"** or **"and then"**. 
+> For example: `df >> Plot() >> show()` is read as *"take the dataframe, **pipe it to** a Plot, **and then** show it."*
 
 ## Quick Start (Functional Style)
 
